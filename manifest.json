@@ -1,0 +1,7 @@
+{
+  "name": "AUI projectTokyo",
+  "short_name": "AUI projectTokyo",
+  "description": "systeem om een gerecht te bestellen",
+  "start_url": "/",
+  "display": "standalone"
+}
