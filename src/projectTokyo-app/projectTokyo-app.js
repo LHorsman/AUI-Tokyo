@@ -1,8 +1,12 @@
-import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
+import {
+  html,
+  PolymerElement
+} from '@polymer/polymer/polymer-element.js';
 import '/node_modules/@polymer/polymer/lib/elements/dom-repeat.js';
 import '/node_modules/@polymer/paper-button/paper-button.js';
 import '/node_modules/@polymer/paper-input/paper-input.js';
 import '/node_modules/@polymer/app-storage/app-localstorage/app-localstorage-document.js';
+import '/node_modules/@polymer/paper-dialog/paper-dialog.js';
 
 
 /**
@@ -11,7 +15,7 @@ import '/node_modules/@polymer/app-storage/app-localstorage/app-localstorage-doc
  */
 class ProjectTokyoApp extends PolymerElement {
   static get template() {
-    return html`
+    return html `
       <style>
         :host {
           display: block;
@@ -61,6 +65,21 @@ class ProjectTokyoApp extends PolymerElement {
 
         }
       </style>
+      <paper-dialog id="modal" modal>
+      <h2>Wilt u de bestelling plaatsen?</h2>
+      <div>
+      <dom-repeat items="[[sessionOrder]]">
+          <template>
+          <p class="">[[item.dishname]]</p>
+          <p class="">[[item.dishnumber]]</p>
+          </template>
+      </dom-repeat>
+      </div>
+      <div class="buttons">
+        <paper-button dialog-dismiss>Annuleren</paper-button>
+        <paper-button dialog-confirm on-click="save" autofocus>Bestellen</paper-button>
+      </div>
+      </paper-dialog>
 
       <app-localstorage-document key="save" data="{{toSend}}"></app-localstorage-document>
 
@@ -80,7 +99,7 @@ class ProjectTokyoApp extends PolymerElement {
               </div>
             </template>
         </dom-repeat>
-          <div class="button-container"><paper-button raised on-click="save">Bestel</paper-button></div>
+          <div class="button-container"><paper-button raised on-click="popUp">Bestel</paper-button></div>
       </div>
 
 
@@ -99,10 +118,14 @@ class ProjectTokyoApp extends PolymerElement {
 
     this.push("toSend", {"orderID": this.toSend.length +1, "orderItems": dishes, "orderDate": orderDate})
 
-
-
-
   }
+
+  beforeSend(){
+    this.sessionOrder = this.dishes.filter((value) => {
+      return value.dishamount > 0;
+    });
+  }
+
 
   static get properties() {
     return {
@@ -122,8 +145,24 @@ class ProjectTokyoApp extends PolymerElement {
         value: [
 
         ]
+      },
+
+      sessionOrder:{
+        type: Array,
+        value: []
+
       }
     };
+
+
+  }
+
+
+  popUp() {
+    this.beforeSend();
+    console.log('popup clicked');
+    this.$.modal.open();
+    this.iconType = this.iconType === 'help' ? 'feedback' : 'help';
   }
 }
 
