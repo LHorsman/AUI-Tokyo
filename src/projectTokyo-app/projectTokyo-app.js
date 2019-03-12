@@ -25,4 +25,4 @@ class ProjectTokyoApp extends PolymerElement {
   }
 }
 
-window.customElements.define('projectTokyo-app', ProjectTokyoApp);
+window.customElements.define('projecttokyo-app', ProjectTokyoApp);
