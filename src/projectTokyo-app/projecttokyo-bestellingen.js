@@ -1,5 +1,8 @@
 import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '@polymer/paper-button/paper-button.js';
+import '@polymer/neon-animation/animations/scale-up-animation.js';
+import '@polymer/neon-animation/animations/fade-out-animation.js';
+import '@polymer/paper-dialog/paper-dialog.js';
 
 /**
  * @customElement
@@ -220,16 +223,27 @@ class ProjectTokyoBestellingen extends PolymerElement {
         </ul>
       </div>
 
+      <paper-dialog id="modal" modal>
+        <div class="column">
+          <h2>Selectie serveren?</h2>
+          <paper-button dialog-dismiss>Cancel</paper-button>
+          <paper-button dialog-confirm autofocus>Accept</paper-button>
+        </div>
+      </paper-dialog>
+
       <div class="bottom-right">
         <paper-button raised class="indigo">In bereiding</paper-button>
-        <paper-button raised class="indigo">Serveren</paper-button>
+        <paper-button on-click="widgetClicked" raised class="indigo">Serveren</paper-button>
       </div>
 
 
     `;
   }
 
-
+  widgetClicked() {
+    this.$.modal.open();
+    this.iconType = this.iconType === 'help' ? 'feedback' : 'help';
+  }
 
   static get properties() {
     return {
