@@ -88,21 +88,24 @@ class ProjectTokyoApp extends PolymerElement {
   }
 
   save(e) {
-    this.toSend = this.dishes.filter((value) => {
+
+    let dishes = this.dishes.filter((value) => {
       return value.dishamount > 0;
     });
 
-    console.log(this.toSend);
+    let date = new Date();
+    let orderDate = date.getHours() + ":" + date.getMinutes();
+
+
+    this.push("toSend", {"orderID": this.toSend.length +1, "orderItems": dishes, "orderDate": orderDate})
+
+
+
+
   }
 
   static get properties() {
     return {
-      someshit: {
-          key: 'search',
-          type: String,
-          value: "weifjoi"
-      },
-
       dishes: {
         type: Array,
         value: [
@@ -117,7 +120,7 @@ class ProjectTokyoApp extends PolymerElement {
       toSend: {
         type: Array,
         value: [
-          {}
+
         ]
       }
     };
