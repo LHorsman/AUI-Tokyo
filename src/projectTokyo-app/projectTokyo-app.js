@@ -70,7 +70,7 @@ class ProjectTokyoApp extends PolymerElement {
       <dom-repeat items="[[sessionOrder]]">
           <template>
           <p class="">[[item.dishname]]</p>
-          <p class="">[[item.dishnumber]]</p>
+          <p class="">[[item.dishamount]]</p>
           </template>
       </dom-repeat>
       </div>
@@ -112,7 +112,7 @@ class ProjectTokyoApp extends PolymerElement {
     let date = new Date();
     let orderDate = date.getHours() + ":" + date.getMinutes();
 
-    this.push("toSend", {"orderID": this.toSend.length +1, "orderItems": dishes, "orderDate": orderDate})
+    this.push("toSend", {"orderID": this.toSend.length +1, "orderItems": dishes, "orderDate": orderDate, "status": ""})
   }
 
   beforeSend(){

@@ -7,6 +7,7 @@ import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
 import {AppStorageBehavior} from '@polymer/app-storage/app-storage-behavior.js';
 import '@polymer/app-storage/app-localstorage/app-localstorage-document.js';
 import '/node_modules/@polymer/polymer/lib/elements/dom-repeat.js';
+import '@polymer/paper-checkbox/paper-checkbox.js';
 
 
 /**
@@ -202,7 +203,7 @@ class ProjectTokyoBestellingen extends PolymerElement {
 
 
       <div class="column">
-        <dom-repeat items="[[toSend]]">
+        <dom-repeat items="{{toSend}}">
             <template>
               <ul>
                 <li class="kaart">
@@ -218,7 +219,7 @@ class ProjectTokyoBestellingen extends PolymerElement {
                       </div>
                     </template>
                   </dom-repeat>
-                  <input class="select" type="checkbox" name="select">
+                     <paper-checkbox class="select" value="{{item.status}}"></paper-checkbox>
                   <div class="timestamp">[[item.orderDate]]</div>
                 </li>
               </ul>
