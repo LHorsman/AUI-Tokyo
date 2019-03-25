@@ -93,6 +93,7 @@ class ProjectTokyoBestellingen extends PolymerElement {
         }
 
         .column ul li {
+          position: relative;
           display: inline;
           float: left;
           width: 22.2%;
@@ -129,7 +130,8 @@ class ProjectTokyoBestellingen extends PolymerElement {
           width: 100%;
         }
 
-        li {
+        .kaart {
+          padding: 5px;
           margin: 15px 0;
         }
 
@@ -143,6 +145,7 @@ class ProjectTokyoBestellingen extends PolymerElement {
         }
 
         .dish-container {
+          margin-bottom: 3px;
           width:100%;
           display:flex;
         }
@@ -153,6 +156,34 @@ class ProjectTokyoBestellingen extends PolymerElement {
 
         .dishamount {
           flex:1;
+        }
+
+        .information {
+          margin-bottom: 10px;
+          width: 100%;
+          display: flex;
+        }
+
+        .information-gerecht {
+          flex:8;
+        }
+
+        .information-aantal {
+          flex:2;
+        }
+
+        .timestamp {
+          margin: 3px 3px;
+          position: absolute;
+          right: 0;
+          bottom: 0;
+        }
+
+        .select {
+          margin: 3px 3px;
+          position: absolute;
+          left: 0;
+          bottom: 0;
         }
 
 
@@ -174,17 +205,22 @@ class ProjectTokyoBestellingen extends PolymerElement {
         <dom-repeat items="[[toSend]]">
             <template>
               <ul>
-                <li>
-                   Gerecht aantal
-                    <dom-repeat items="[[item.orderItems]]">
-                      <template>
-                        <div class="dish-container">
-                          <div class="dishname">[[item.dishname]]</div>
-                          <div class="dishamount">[[item.dishamount]]</div>
-                        </div>
-                      </template>
-                    </dom-repeat>
-                  </li>
+                <li class="kaart">
+                  <div class="information">
+                    <div class="information-gerecht">Gerecht</div>
+                    <div class="information-aantal">aantal</div>
+                  </div>
+                  <dom-repeat items="[[item.orderItems]]">
+                    <template>
+                      <div class="dish-container">
+                        <div class="dishname">[[item.dishname]]</div>
+                        <div class="dishamount">[[item.dishamount]]</div>
+                      </div>
+                    </template>
+                  </dom-repeat>
+                  <input class="select" type="checkbox" name="select">
+                  <div class="timestamp">[[item.orderDate]]</div>
+                </li>
               </ul>
             </template>
         </dom-repeat>
@@ -211,6 +247,8 @@ class ProjectTokyoBestellingen extends PolymerElement {
     this.$.modal.open();
     this.iconType = this.iconType === 'help' ? 'feedback' : 'help';
   }
+
+
 
   static get properties() {
     return {
