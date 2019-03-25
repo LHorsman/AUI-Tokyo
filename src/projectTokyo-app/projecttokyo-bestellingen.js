@@ -99,10 +99,11 @@ class ProjectTokyoBestellingen extends PolymerElement {
           float: left;
           width: 22.2%;
           margin-left: 2%;
-          background-color: #dcdcdc;
+          background-color: #4e5556;
           min-height: 200px;
           border: 3px solid #3f90a3;
           box-shadow: 5px 10px 10px #dcdcdc;
+          color: #fff;
         }
 
         .row:after {
@@ -137,12 +138,16 @@ class ProjectTokyoBestellingen extends PolymerElement {
         }
 
         .bottom-right {
-          margin: 20px 20px;
+          margin: 10px 2px;
           position: absolute;
-          right: 0;
+          left: 0;
           bottom: 0;
-          color: #a00000;
+          color: #fff;
           font-family: arial;
+        }
+
+        .bottom-right paper-button{
+          background-color:#3f90a3;
         }
 
         .dish-container {
@@ -163,6 +168,7 @@ class ProjectTokyoBestellingen extends PolymerElement {
           margin-bottom: 10px;
           width: 100%;
           display: flex;
+          background-color: #3f90a3;
         }
 
         .information-gerecht {
@@ -174,10 +180,12 @@ class ProjectTokyoBestellingen extends PolymerElement {
         }
 
         .timestamp {
-          margin: 3px 3px;
+          margin: 10px;
           position: absolute;
           right: 0;
           bottom: 0;
+          background-color: #3f90a3;
+          padding: 5px;
         }
 
         .select {
@@ -219,7 +227,10 @@ class ProjectTokyoBestellingen extends PolymerElement {
                       </div>
                     </template>
                   </dom-repeat>
-                     <paper-checkbox class="select" value="{{item.status}}"></paper-checkbox>
+                     <div class="bottom-right">
+                       <paper-button on-click="colorChange" raised class="indigo">In bereiding</paper-button>
+                       <paper-button on-click="serveren" raised class="indigo">Serveren</paper-button>
+                     </div>
                   <div class="timestamp">[[item.orderDate]]</div>
                 </li>
               </ul>
@@ -227,29 +238,21 @@ class ProjectTokyoBestellingen extends PolymerElement {
         </dom-repeat>
       </div>
 
-      <paper-dialog id="modal" modal>
-        <div class="column">
-          <h2>Selectie serveren?</h2>
-          <paper-button dialog-dismiss>Cancel</paper-button>
-          <paper-button dialog-confirm autofocus>Accept</paper-button>
-        </div>
-      </paper-dialog>
-
-      <div class="bottom-right">
-        <paper-button raised class="indigo">In bereiding</paper-button>
-        <paper-button on-click="widgetClicked" raised class="indigo">Serveren</paper-button>
-      </div>
-
       <app-localstorage-document key="save" data="{{toSend}}"></app-localstorage-document>
     `;
   }
 
-  widgetClicked() {
-    this.$.modal.open();
-    this.iconType = this.iconType === 'help' ? 'feedback' : 'help';
+  colorChange(event){
+      console.log(event);
+    event.srcElement.parentElement.parentElement.style.borderColor = "orange";
   }
 
+  serveren(event){
+      console.log(event);
+    event.srcElement.parentElement.parentElement.style.display = "none";
 
+
+  }
 
   static get properties() {
     return {
