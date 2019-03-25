@@ -1,12 +1,11 @@
-import {
-  html,
-  PolymerElement
-} from '@polymer/polymer/polymer-element.js';
+import {html, PolymerElement} from '@polymer/polymer/polymer-element.js';
 import '/node_modules/@polymer/polymer/lib/elements/dom-repeat.js';
 import '/node_modules/@polymer/paper-button/paper-button.js';
 import '/node_modules/@polymer/paper-input/paper-input.js';
 import '/node_modules/@polymer/app-storage/app-localstorage/app-localstorage-document.js';
 import '/node_modules/@polymer/paper-dialog/paper-dialog.js';
+import {AppStorageBehavior} from '@polymer/app-storage/app-storage-behavior.js';
+import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
 
 
 /**
@@ -81,7 +80,6 @@ class ProjectTokyoApp extends PolymerElement {
       </div>
       </paper-dialog>
 
-      <app-localstorage-document key="save" data="{{toSend}}"></app-localstorage-document>
 
       <div class="dishes-container">
         <dom-repeat items="[[dishes]]">
@@ -102,7 +100,7 @@ class ProjectTokyoApp extends PolymerElement {
           <div class="button-container"><paper-button raised on-click="popUp">Bestel</paper-button></div>
       </div>
 
-
+      <app-localstorage-document key="save" data="{{toSend}}"></app-localstorage-document>
     `;
   }
 
@@ -139,14 +137,17 @@ class ProjectTokyoApp extends PolymerElement {
 
       toSend: {
         type: Array,
-        value: [
-
-        ]
+        value: []
       },
 
       sessionOrder:{
         type: Array,
         value: []
+      },
+
+      string1: {
+        type: String,
+        value: 'some String'
       }
     };
 

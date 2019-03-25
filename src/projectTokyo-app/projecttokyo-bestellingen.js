@@ -3,6 +3,11 @@ import '@polymer/paper-button/paper-button.js';
 import '@polymer/neon-animation/animations/scale-up-animation.js';
 import '@polymer/neon-animation/animations/fade-out-animation.js';
 import '@polymer/paper-dialog/paper-dialog.js';
+import {mixinBehaviors} from '@polymer/polymer/lib/legacy/class.js';
+import {AppStorageBehavior} from '@polymer/app-storage/app-storage-behavior.js';
+import '@polymer/app-storage/app-localstorage/app-localstorage-document.js';
+import '/node_modules/@polymer/polymer/lib/elements/dom-repeat.js';
+
 
 /**
  * @customElement
@@ -137,6 +142,19 @@ class ProjectTokyoBestellingen extends PolymerElement {
           font-family: arial;
         }
 
+        .dish-container {
+          width:100%;
+          display:flex;
+        }
+
+        .dishname {
+          flex:6;
+        }
+
+        .dishamount {
+          flex:1;
+        }
+
 
       </style>
       <div class="header">
@@ -150,77 +168,26 @@ class ProjectTokyoBestellingen extends PolymerElement {
         </div>
       </div>
 
+
+
       <div class="column">
-        <ul>
-          <li>
-            <table>
-              <tr>
-                <th>Gerecht</th>
-                <th>aantal</th>
-              </tr>
-              <tr>
-                <td>63. California rolls</td>
-                <td>5</td>
-              </tr>
-            </table>
-          </li>
-          <li>
-            <table>
-              <tr>
-                <th>Gerecht</th>
-                <th>aantal</th>
-              </tr>
-              <tr>
-                <td>69. gerecht</td>
-                <td>3</td>
-              </tr>
-            </table>
-          </li>
-          <li>
-            <table>
-              <tr>
-                <th>Gerecht</th>
-                <th>aantal</th>
-              </tr>
-              <tr>
-                <td>63. California rolls</td>
-                <td>5</td>
-              </tr>
-            </table>
-          </li>
-          <li>
-            <table>
-              <tr>
-                <th>Gerecht</th>
-                <th>aantal</th>
-              </tr>
-              <tr>
-                <td>63. California rolls</td>
-                <td>5</td>
-              </tr>
-            </table>
-          </li>
-          <li>
-            <table>
-              <tr>
-                <th>Gerecht</th>
-                <th>aantal</th>
-              </tr>
-              <tr>
-                <td>63. California rolls</td>
-                <td>5</td>
-              </tr>
-              <tr>
-                <td>23. Friet</td>
-                <td>1</td>
-              </tr>
-              <tr>
-                <td>38. Hondenvlees</td>
-                <td>6</td>
-              </tr>
-            </table>
-          </li>
-        </ul>
+        <dom-repeat items="[[toSend]]">
+            <template>
+              <ul>
+                <li>
+                   Gerecht aantal
+                    <dom-repeat items="[[item.orderItems]]">
+                      <template>
+                        <div class="dish-container">
+                          <div class="dishname">[[item.dishname]]</div>
+                          <div class="dishamount">[[item.dishamount]]</div>
+                        </div>
+                      </template>
+                    </dom-repeat>
+                  </li>
+              </ul>
+            </template>
+        </dom-repeat>
       </div>
 
       <paper-dialog id="modal" modal>
@@ -236,7 +203,7 @@ class ProjectTokyoBestellingen extends PolymerElement {
         <paper-button on-click="widgetClicked" raised class="indigo">Serveren</paper-button>
       </div>
 
-
+      <app-localstorage-document key="save" data="{{toSend}}"></app-localstorage-document>
     `;
   }
 
@@ -247,9 +214,8 @@ class ProjectTokyoBestellingen extends PolymerElement {
 
   static get properties() {
     return {
-      prop1: {
-        type: String,
-        value: 'projecttokyo-bestellingen'
+      toSend: {
+        type: Array
       }
     };
   }
