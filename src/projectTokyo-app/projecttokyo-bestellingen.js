@@ -171,7 +171,7 @@ class ProjectTokyoBestellingen extends PolymerElement {
                 <th>aantal</th>
               </tr>
               <tr>
-                <td>69. Daddy Martijn</td>
+                <td>69. gerecht</td>
                 <td>3</td>
               </tr>
             </table>

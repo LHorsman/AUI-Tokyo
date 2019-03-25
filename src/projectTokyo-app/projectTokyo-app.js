@@ -84,7 +84,7 @@ class ProjectTokyoApp extends PolymerElement {
       <app-localstorage-document key="save" data="{{toSend}}"></app-localstorage-document>
 
       <div class="dishes-container">
-        <dom-repeat items="{{dishes}}">
+        <dom-repeat items="[[dishes]]">
             <template>
               <div class="dish-container ">
                 <img class="dish-image" src="[[item.imagePath]]">
@@ -107,7 +107,6 @@ class ProjectTokyoApp extends PolymerElement {
   }
 
   save(e) {
-
     let dishes = this.dishes.filter((value) => {
       return value.dishamount > 0;
     });
@@ -115,9 +114,7 @@ class ProjectTokyoApp extends PolymerElement {
     let date = new Date();
     let orderDate = date.getHours() + ":" + date.getMinutes();
 
-
     this.push("toSend", {"orderID": this.toSend.length +1, "orderItems": dishes, "orderDate": orderDate})
-
   }
 
   beforeSend(){
@@ -150,7 +147,6 @@ class ProjectTokyoApp extends PolymerElement {
       sessionOrder:{
         type: Array,
         value: []
-
       }
     };
 
